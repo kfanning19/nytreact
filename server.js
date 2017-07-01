@@ -43,10 +43,9 @@ db.once("open", function() {
 // We will call this route the moment our page gets rendered
 app.get("/api/saved", function(req, res) {
 
-  // We will find all the records, sort it in descending order, then limit the records to 5
   SavedArticle.find({}).sort([
     ["date", "descending"]
-  ]).limit(5).exec(function(err, doc) {
+  ]).exec(function(err, doc) {
     if (err) {
       console.log(err);
     }
@@ -63,7 +62,7 @@ app.post("/api/saved", function(req, res) {
   SavedArticle.create({
     title: req.body.title,
     date: req.body.date,
-    url: req.boy.url
+    url: req.body.url
   }, function(err) {
     if (err) {
       console.log(err);
@@ -73,6 +72,16 @@ app.post("/api/saved", function(req, res) {
     }
   });
 });
+app.delete("/api/saved/:id", function(req,res){
+	SavedArticle.findOneAndRemove({_id: req.params.id})
+	.exec(function(err, data){
+		if(err){
+			console.log(err)
+		} else{
+			res.send(data)
+		}
+	})
+})
 // Main "/" Route. This will redirect the user to our rendered React application
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");

@@ -17,6 +17,34 @@ var Main = React.createClass({
 			saved:{} 
 		}
 	},
+	componentDidMount: function(){
+		helpers.getSaved().then(function(res){
+			if(res !== this.state.saved){
+				this.setState({saved: res.data})
+			}
+		}.bind(this))
+
+	},
+	componentDidUpdate:function(){
+		helpers.runQuery(this.state.searchTerm, this.state.startYear, this.state.endYear).then(function(data){
+			if(data !== this.state.results){
+				this.setState({results: data})
+			}
+		}.bind(this))
+
+	},
+	saveArticles:function(article){
+		helpers.postArticle(article).then(function(data){
+			helpers.getSaved().then(function(res){
+				this.setState({saved: res.data})
+			})})
+	},
+	deleteArticles:function(id){
+		helpers.deleteArticle(id).then(function(data){
+			helpers.getSaved().then(function(res){
+				this.setState({saved: res.data})
+			})})
+	}
 	setSearch: function(newSearchTerm, newStartYear, newEndYear){
 		this.setState({
 			searchTerm: newSearchTerm, 
