@@ -16,7 +16,7 @@ var Saved = React.createClass({
 					</div>
 				)
 			})}
-				</div>
+		</div>
 	}
 
 });

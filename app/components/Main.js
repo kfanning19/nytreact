@@ -44,7 +44,7 @@ var Main = React.createClass({
 			helpers.getSaved().then(function(res){
 				this.setState({saved: res.data})
 			})})
-	}
+	},
 	setSearch: function(newSearchTerm, newStartYear, newEndYear){
 		this.setState({
 			searchTerm: newSearchTerm, 

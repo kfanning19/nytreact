@@ -1,10 +1,5 @@
 var React = require("react");
 
-var Form = require("./Search/Form");
-var Results = require("./Search/Results");
-
-var helpers = require("./utils/helper");
-
 // Create Search Component
 var Search = React.createClass({
 	getInitialState: function(){
@@ -82,7 +77,7 @@ var Search = React.createClass({
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 	}
 
 });
