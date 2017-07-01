@@ -75,7 +75,7 @@ var Search = React.createClass({
 						<div key={i} className="well">
 							<a href={results.url} target="_blank"><h4>{results.title}</h4></a>
 							<p> Date: {results.date}</p>
-							<button type="submit" className="btn btn-success" onClick={this.handleSave.bind(null, i)}>Save Article</button>
+							<button type="submit" className="btn btn-success save-btn" onClick={this.handleSave.bind(null, i)}>Save Article</button>
 						</div>
 						)
 					})}

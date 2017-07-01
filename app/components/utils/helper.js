@@ -17,7 +17,7 @@ var helpers = {
 			var resultsObj = {};
 
 			for(var = i; i <results.length; i++){
-				var newResult = [results[i].web_url, results[i].headline.main, results[i].pub_date];
+				var newResult = {url: results[i].web_url, title: results[i].headline.main, date: results[i].pub_date};
 				resultsObj.push(newResult);
 			}
 			return resultsObj

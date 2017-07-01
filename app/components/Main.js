@@ -58,7 +58,7 @@ var Main = React.createClass({
 				<h1 className="text-center"><strong><i className="fa fa-newspaper-o"></i> New York Times Search</strong></h1>
 			</div>
 				<Search setSearch={this.setSearch} displayResults={this.state.results} saveArticles={this.saveArticles}/>
-				<Saved saved={this.state.saved} deleteArticles={this.deleteArticles} />
+				<Saved saved={this.state.saved} deleteArticle={this.deleteArticles} />
 
 		</div>
 	}
