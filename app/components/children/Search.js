@@ -7,7 +7,7 @@ var Search = React.createClass({
 			searchTerm: "", 
 			startYear: "", 
 			endYear: "", 
-			results: {} 
+			results: [] 
 		}
 	},
 	handleChange: function(event){
@@ -29,55 +29,56 @@ var Search = React.createClass({
 
 	},
 	render: function(){
-
-		<div className="container">
-			<div className = "row">
-			<div className = "panel panel-primary">
-				<div className = "panel-heading">
-					<h3 className="panel-title">Search</h3>
-				</div>
-				<div className= "panel-body">
-					<form onSubmit={this.handleSubmit}>
-							  <div className="form-group">
-							    <label for="search">Search Term</label>
-							    <input type="text" value={this.state.value} className="form-control" id="searchTerm" onChange={this.handleChange} required/>
-							  </div>
-
-							  <div className="form-group">
-							    <label for="startYear">Start Year (Required) </label>
-							    <input type="text" value={this.state.value} className="form-control" id="startYear" onChange={this.handleChange} required/>
-							  </div>
-
-							  <div className="form-group">
-							    <label for="endYear">End Year (Required)</label>
-							    <input type="text" value={this.state.value} className="form-control" id="endYear" onChange={this.handleChange}required/>
-							  </div>
-							  <button type="submit" className="btn btn-default" id="runSearch"><i class="fa fa-search"></i> Search</button>
-
-					</form>
-				</div>
-			</div>
-		</div>
-			
-		<div className="row">
-			<div className="panel panel-primary">
-				<div className= "panel-heading">
-					<h3 className="panel-title">Results</h3>
-				</div>
-				<div className="panel-body">
-					{this.props.displayResults.map(function(results, i){
-						return(
-						<div key={i} className="well">
-							<a href={results.url} target="_blank"><h4>{results.title}</h4></a>
-							<p> Date: {results.date}</p>
-							<button type="submit" className="btn btn-success save-btn" onClick={this.handleSave.bind(null, i)}>Save Article</button>
+		return(
+			<div className="container">
+					<div className = "row">
+					<div className = "panel panel-primary">
+						<div className = "panel-heading">
+							<h3 className="panel-title">Search</h3>
 						</div>
-						)
-					})}
+						<div className= "panel-body">
+							<form>
+									  <div className="form-group">
+									    <label for="search">Search Term</label>
+									    <input type="text" value={this.state.searchTerm} className="form-control" id="searchTerm" onChange={this.handleChange} required/>
+									  </div>
+		
+									  <div className="form-group">
+									    <label for="startYear">Start Year (Required) </label>
+									    <input type="text" value={this.state.startYear} className="form-control" id="startYear" onChange={this.handleChange} required/>
+									  </div>
+		
+									  <div className="form-group">
+									    <label for="endYear">End Year (Required)</label>
+									    <input type="text" value={this.state.endYear} className="form-control" id="endYear" onChange={this.handleChange}required/>
+									  </div>
+									  <button type="submit" className="btn btn-default" id="runSearch"><i class="fa fa-search" onClick={this.handleSubmit}></i> Search</button>
+		
+							</form>
+						</div>
+					</div>
+				</div>
+					
+				<div className="row">
+					<div className="panel panel-primary">
+						<div className= "panel-heading">
+							<h3 className="panel-title">Results</h3>
+						</div>
+						<div className="panel-body">
+							{this.props.results.map(function(results, i){
+								return(
+								<div key={i} className="well">
+									<a href={results.web_url} target="_blank"><h4>{results.headline.main}</h4></a>
+									<p> Date: {results.pub_date}</p>
+									<button type="submit" className="btn btn-success save-btn" onClick={this.handleSave.bind(null, i)}>Save Article</button>
+								</div>
+								)
+							})}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		)
 	}
 
 });

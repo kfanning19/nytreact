@@ -12,15 +12,15 @@ var helpers = {
 
 		var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + q + "&begin_date=" + begin_date + "0101&end_date=" + endYear + "1231";
 		
-		return axios.get(queryURL).then(function(results){
-			var results = results.data.response.docs;
-			var resultsObj = {};
-
-			for(var i= 0; i <results.length; i++){
-				var newResult = {url: results[i].web_url, title: results[i].headline.main, date: results[i].pub_date};
-				resultsObj.push(newResult);
+		axios.get(queryURL).then(function(results){
+			var queryResults = results.data.response.docs;
+			var resultsArray = [];
+			for(var i = 0; i<queryResults.length; i++){
+				if(queryResults[i].headline.main && queryResults[i].web_url && queryResults[i].pub_date){
+					resultsArray.push(queryResults[i]);
+				}
 			}
-			return resultsObj
+			return resultsArray
 		});
 	},
 	getSaved:function(){

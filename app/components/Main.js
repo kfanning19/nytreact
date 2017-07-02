@@ -13,8 +13,8 @@ var Main = React.createClass({
 			searchTerm: "", 
 			startYear: "", 
 			endYear: "", 
-			results: {},
-			saved:{} 
+			results: [],
+			saved:[] 
 		}
 	},
 	componentDidMount: function(){
@@ -25,13 +25,14 @@ var Main = React.createClass({
 		}.bind(this))
 
 	},
-	componentDidUpdate:function(){
-		helpers.runQuery(this.state.searchTerm, this.state.startYear, this.state.endYear).then(function(data){
-			if(data !== this.state.results){
-				this.setState({results: data})
-			}
-		}.bind(this))
-
+	componentDidUpdate:function(prevState){
+		if(prevState.searchTerm != this.state.searchTerm){
+				helpers.runQuery(this.state.searchTerm, this.state.startYear, this.state.endYear).then(function(data){
+					if(data !== this.state.results){
+						this.setState({results: data})
+					}
+				}.bind(this))
+		}
 	},
 	saveArticles:function(article){
 		helpers.postArticle(article).then(function(data){
@@ -53,15 +54,16 @@ var Main = React.createClass({
 			})
 	},
 	render: function(){
+		return(
 		<div className="container">
-			<div className="jumbotron" style="background-color: #20315A ; color: white;">
+			<div className="jumbotron" styles="background-color: #20315A ; color: white;">
 				<h1 className="text-center"><strong><i className="fa fa-newspaper-o"></i> New York Times Search</strong></h1>
 			</div>
-				<Search setSearch={this.setSearch} displayResults={this.state.results} saveArticles={this.saveArticles}/>
+				<Search setSearch={this.setSearch} results={this.state.results} saveArticles={this.saveArticles}/>
 				<Saved saved={this.state.saved} deleteArticle={this.deleteArticles} />
 
 		</div>
-	}
+	)}
 });
 
 module.exports = Main;
