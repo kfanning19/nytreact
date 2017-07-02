@@ -17,13 +17,19 @@ var Search = React.createClass({
 	},
 	handleSubmit:function(event){
 		event.preventDefault();
-		this.props.setSearch(this.state.searchTerm, this.state.startYear, this.state.endYear);
+		console.log("handling submit")
+		var submitObj = {};
+		submitObj.searchTerm = this.state.searchTerm;
+		submitObj.startYear = this.state.startYear;
+		submitObj.endYear = this.state.endYear;	
+		console.log("Handle Submit:", submitObj);
+		this.props.setSearch(submitObj);
 	},
 	handleSave: function(id){
-		savingArticle = {};
-		savingArticle.title = this.displayResults.title;
-		savingArticle.url = this.displayResults.url;
-		savingArticle.date= this.displayResults.date;
+		var savingArticle = {};
+		savingArticle.title = this.results.headline.main;
+		savingArticle.url = this.results.web_url;
+		savingArticle.date= this.results.pub_date;
 
 		this.props.saveArticle(savingArticle);
 
@@ -37,23 +43,22 @@ var Search = React.createClass({
 							<h3 className="panel-title">Search</h3>
 						</div>
 						<div className= "panel-body">
-							<form>
+							<form onSubmit = {this.handleSubmit}>
 									  <div className="form-group">
-									    <label for="search">Search Term</label>
+									    <label htmlFor="search">Search Term</label>
 									    <input type="text" value={this.state.searchTerm} className="form-control" id="searchTerm" onChange={this.handleChange} required/>
 									  </div>
 		
 									  <div className="form-group">
-									    <label for="startYear">Start Year (Required) </label>
+									    <label htmlFor="startYear">Start Year (Required) </label>
 									    <input type="text" value={this.state.startYear} className="form-control" id="startYear" onChange={this.handleChange} required/>
 									  </div>
 		
 									  <div className="form-group">
-									    <label for="endYear">End Year (Required)</label>
+									    <label htmlFor="endYear">End Year (Required)</label>
 									    <input type="text" value={this.state.endYear} className="form-control" id="endYear" onChange={this.handleChange}required/>
 									  </div>
-									  <button type="submit" className="btn btn-default" id="runSearch"><i class="fa fa-search" onClick={this.handleSubmit}></i> Search</button>
-		
+									  <button type="submit" className="btn btn-default" id="runSearch"><i className="fa fa-search"></i> Search</button>
 							</form>
 						</div>
 					</div>

@@ -60,9 +60,9 @@ app.post("/api/saved", function(req, res) {
 
   // Here we'll save the location based on the JSON input.
   SavedArticle.create({
-    title: req.body.title,
-    date: req.body.date,
-    url: req.body.url
+    title: req.body.headline.main,
+    date: req.body.pub_date,
+    url: req.body.web_url
   }, function(err) {
     if (err) {
       console.log(err);
